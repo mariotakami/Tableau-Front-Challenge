@@ -124,4 +124,3 @@ if (viz.workbook.activeSheet.sheetType === SheetType.Dashboard) {
 
 ---
 
-Com este desafio, você poderá avaliar as habilidades dos candidatos em React, Next.js, design de interfaces, e integração com APIs externas, além de sua capacidade de se inspirar em exemplos existentes para criar uma interface visualmente atraente e funcional.
