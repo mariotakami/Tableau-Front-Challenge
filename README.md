@@ -6,7 +6,7 @@ Criar uma aplicação em React utilizando Next.js que melhora o design de uma p�
 #### Recursos:
 - Documentação da API de Embedding do Tableau: [Tableau Embedding API](https://help.tableau.com/current/api/embedding_api/en-us/index.html)
 - Playground do Tableau para Embedding: [Tableau Embedding Playground](https://developer.salesforce.com/tools/tableau/embedding-playground)
-
+- Playbook Tableau embedding: [Tableau Playbook](https://tableau.github.io/embedding-playbook/)
 #### Tarefa:
 1. **Configuração do Projeto**:
    - Criar um projeto Next.js.
