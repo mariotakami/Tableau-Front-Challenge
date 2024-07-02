@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My embedded Tableau vizualization</title>
+    <style>
+      html, body, tableau-viz, tableau-authoring-viz {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <tableau-viz
+      src="https://public.tableau.com/views/HRAttritionDashboardRWFD_16570446563570/viz?:language=pt-BR&:sid=&:display_count=n&:origin=viz_share_link"
+      device="desktop"
+      hide-tabs
+      toolbar="bottom"
+    >
+    </tableau-viz>
+    <script type="module">
+      import { SheetType, TableauEventType } from 'https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js';
+      (async () => {
+        // Get the viz object from the HTML web component
+        const viz = document.querySelector('tableau-viz, tableau-authoring-viz');
+
+        // window.token is the JWT generated using a Connected App configured with Direct Trust.
+        // The value is generated and is only available when this code executes within the Embedding Playground.
+        // See the Connected Apps documentation (https://sfdc.co/ca-direct) for more information.
+        // See this repository (https://sfdc.co/ca-jwt) for samples in various languages.
+        viz.token = window.token;
+
+        // Wait for the viz to become interactive
+        await new Promise((resolve, reject) => {
+          // Add an event listener to verify the viz becomes interactive
+          viz.addEventListener(TableauEventType.FirstInteractive, () => {
+            console.log('Viz is interactive!');
+            resolve();
+          });
+
+          viz.addEventListener(TableauEventType.VizLoadError, (error) => {
+            const message = JSON.parse(error.detail.message);
+            const errorMessage = JSON.parse(message.errorMessage);
+
+            const displayMessage = `ca-error-${errorMessage.result.errors[0].code}`;
+            reject(displayMessage);
+          });
+        });
+
+        let dashboard;
+        let worksheet;
+        if (viz.workbook.activeSheet.sheetType === SheetType.Dashboard) {
+          dashboard = viz.workbook.activeSheet;
+
+          // Provide the name of the worksheet you want to use from the dashboard
+          worksheet = dashboard.worksheets.find((ws) => ws.name === 'Replace-Name-of-Worksheet');
+        } else {
+          // Active sheet is already a worksheet
+          worksheet = viz.workbook.activeSheet;
+        }
+
+        // *** Insert your code below! ***
+      })();
+    </script>  
+  </body>
+</html>
